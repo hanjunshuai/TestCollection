@@ -1,15 +1,37 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import static java.util.Arrays.sort;
 
 public class Main {
     public static void main(String[] args) {
         radixSort();
+        hasMap();
+    }
+
+    /**
+     * hasmap V remove(Object key);
+     */
+    private static void hasMap() {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("a", "a");
+        hashMap.put("b", "b");
+//        String a = hashMap.remove("a");
+//        System.out.println(a + hashMap.toString());
+        Set<Map.Entry<String, String>> entries = hashMap.entrySet();
+        System.out.println(entries);
+        hashMap.keySet();
+        System.out.println(hashMap.keySet().toString());
+        System.out.println(hashMap.size());
+
     }
 
     /**
      * 基数排序（桶排序）
      */
     private static void radixSort() {
-        int[] arrays = {6, 4322, 432, 344, 55};
+        int[] arrays = {6, 4322, 432, 344, 55, 1, 6, 88, 99, 6666, 444, 2, 4, 6, 5, 4, 4};
         int max = findMax(arrays, 0, arrays.length - 1);
         // 需要遍历的次数由数组最大值的位数来决定
         for (int i = 1; max / i > 0; i = i * 10) {
@@ -37,6 +59,9 @@ public class Main {
 
         sort(arrays);
         System.out.println(arrays);
+        for (int i = 0; i < arrays.length; i++) {
+            System.out.println(arrays[i]);
+        }
     }
 
     /**
