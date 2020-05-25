@@ -5,13 +5,104 @@ import java.util.Set;
 import static java.util.Arrays.sort;
 
 public class Main {
+    private static String hexStr = "0123456789ABCDEF";
+    private static String[] binaryArray =
+            {"0000", "0001", "0010", "0011",
+                    "0100", "0101", "0110", "0111",
+                    "1000", "1001", "1010", "1011",
+                    "1100", "1101", "1110", "1111"};
+
     public static void main(String[] args) {
-        radixSort();
-        hasMap();
+//        radixSort();
+//        hasMap();
+
+
+        int i = 2;
+        System.out.println(i + " 的二进制是:" + Integer.toBinaryString(Byte.toUnsignedInt((byte) i)));
+//        System.out.println(i + " 的八进制是:" + Integer.toOctalString(Byte.toUnsignedInt((byte) i)));
+//        System.out.println(i + " 的十六进制是:" + Integer.toHexString(Byte.toUnsignedInt((byte) i)));
+//        System.out.println(i + " 的三进制是:" + Integer.toString(Byte.toUnsignedInt((byte) i), 3));
+
+//        String str = "2";
+//        System.out.println(bytes2BinaryStr(str.getBytes()));
+//
+//        System.out.println(MAXIMUM_CAPACITY);
+//        System.out.println(tableSizeFor(10));
+
+        displacement();
+    }
+
+    static final int MAXIMUM_CAPACITY = 1 << 30;
+
+    /**
+     * 返回一个大于输入参数且最近的2的整数次幂的数
+     * <p>
+     * <p>
+     * |=：两个二进制对应位都为0时，结果等于0，否则结果等于1；
+     * &=：两个二进制的对应位都为1时，结果为1，否则结果等于0；
+     * ^=：两个二进制的对应位相同，结果为0，否则结果为1。
+     *
+     * @param cap
+     * @return
+     */
+    static final int tableSizeFor(int cap) {
+        System.out.println("cap: " + cap);
+        int n = cap - 1;
+        System.out.println("n: " + n);
+        System.out.println(n + "    " + Integer.toBinaryString(n));
+        System.out.println((n >>> 1) + "    " + Integer.toBinaryString(n >>> 1));
+        System.out.println(Integer.valueOf("1101", 2).toString());
+        n |= n >>> 1;
+        System.out.println("n>>>1: " + n);
+        n |= n >>> 2;
+        System.out.println("n>>>2: " + n);
+        n |= n >>> 4;
+        System.out.println("n>>>4: " + n);
+        n |= n >>> 8;
+        System.out.println("n>>>8: " + n);
+        n |= n >>> 16;
+        System.out.println("n>>>16: " + n);
+        return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
     }
 
     /**
-     * hasmap V remove(Object key);
+     * 位移
+     * >> 与 >>> 的区别
+     * 1、 >> 带符号右移。(正数右移高位补 0 ,负数右移高位补 1)
+     * 2、>>> 无符号右移，无论是正负数，高位都补 0
+     */
+    public static void displacement() {
+        int i = -4;
+        System.out.println(i + "的十进制：" + i);
+        System.out.println(i + "的二进制：" + Integer.toBinaryString(i));
+        i = i >> 1;
+        System.out.println(i + "右移一位：" + Integer.toBinaryString(i));
+    }
+
+
+    /**
+     * 转换为二进制
+     *
+     * @param bArray
+     * @return
+     */
+    public static String bytes2BinaryStr(byte[] bArray) {
+        String outStr = "";
+        int pos = 0;
+        for (byte b : bArray) {
+            //高四位
+            pos = (b & 0xF0) >> 4;
+            outStr += binaryArray[pos];
+            //低四位
+            pos = b & 0x0F;
+            outStr += binaryArray[pos];
+        }
+        return outStr;
+
+    }
+
+    /**
+     * hasMap
      */
     private static void hasMap() {
         HashMap<String, String> hashMap = new HashMap<>();
